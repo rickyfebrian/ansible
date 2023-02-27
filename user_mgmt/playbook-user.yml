@@ -1,0 +1,26 @@
+- name: Ansible Create user functionlity module demo
+  hosts: host 
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Add the user with a primary group of sudo
+      ansible.builtin.user:
+        name: uzang
+        password: "{{ 'password' | password_hash('sha512') }}"
+        shell: /bin/bash
+        group: sudo
+        createhome: yes 
+        home: /home/uzang
+
+    - name: create folder .ssh
+      file:
+        path: /home/uzang/.ssh
+        state: directory
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: ./files/uzang.pub
+        dest: /home/uzang/.ssh/id_rsa.pub 
+        owner: uzang
+        group: sudo
+        mode: '0644'
