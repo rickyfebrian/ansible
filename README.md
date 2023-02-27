@@ -1,15 +1,15 @@
-buat file host dengan nama inventory
+**#sshkey for host** 
+
+generate sshkey, kemudian lakukan ssh-copy-id ke host tujuan > agar ansible dapat tersambung ke host
+
+**#host file**
+
+create file host dengan nama inventory
+
+**#connection check**
 
 cek akses > ansible host -i inventory -m ping
 
-ansible [host] -m ping >> /etc/ansible/host
-masukan cred [host:vars]
+**#how to play with sudo access**
 
-[host:vars]
-ansible_connection=ssh
-ansible_user=oce
-#ansible_password=123123
-#ansible_ssh_private_key_file=~/.ssh/ansible
-
-###how to play with sudo access
 ansible-playbook -i inventory playbook-user.yml -kK
