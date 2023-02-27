@@ -5,22 +5,22 @@
   tasks:
     - name: Add the user with a primary group of sudo
       ansible.builtin.user:
-        name: uzang
+        name: user
         password: "{{ 'password' | password_hash('sha512') }}"
         shell: /bin/bash
         group: sudo
         createhome: yes 
-        home: /home/uzang
+        home: /home/user
 
     - name: create folder .ssh
       file:
-        path: /home/uzang/.ssh
+        path: /home/user/.ssh
         state: directory
 
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
-        src: ./files/uzang.pub
-        dest: /home/uzang/.ssh/id_rsa.pub 
-        owner: uzang
+        src: ./files/user.pub
+        dest: /home/user/.ssh/id_rsa.pub 
+        owner: user
         group: sudo
         mode: '0644'
